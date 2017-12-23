@@ -47,12 +47,10 @@ event mime_segment_data(c: connection, length: count, data: string){
   info$size += length;
 
   if ( info$size < max_entity_size ) return;
-
   notify_and_remove_from_queue(c);
 }
 
 event mime_end_entity(c: connection){
-  if ( [c$uid] !in entity_queue )
-    return;
+  if ( [c$uid] !in entity_queue ) return;
   notify_and_remove_from_queue(c);
 }
